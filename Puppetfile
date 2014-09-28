@@ -1,0 +1,15 @@
+forge "https://forgeapi.puppetlabs.com"
+
+mod 'hajee-ora_rac', :git => 'https://www.github.com/hajee/ora_rac.git'
+mod 'hajee-easy_type'
+mod 'hajee-oracle'
+mod 'hajee-hacks'
+mod 'hajee-partition'
+mod 'biemond-oradb', :git => 'https://www.github.com/hajee/biemond-oradb.git'
+mod 'puppetlabs-firewall'
+mod 'yelp-netstdlib', :git => 'https://www.github.com/Yelp/puppet-netstdlib.git'
+mod 'adrien-network'
+mod 'erwbgy-ssh'
+mod 'adrien/boolean'
+mod 'erwbgy-limits'
+mod 'puppetlabs/stdlib'

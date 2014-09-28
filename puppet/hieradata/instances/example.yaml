@@ -1,0 +1,49 @@
+---
+
+ora_rac::params::db_name:            EXAMPLE
+ora_rac::params::db_machines:
+  db1:
+    ip:    172.16.10.20
+    priv:  172.17.10.20
+    vip:   172.16.10.21
+  db2:
+    ip:    172.16.10.30
+    priv:  172.17.10.30
+    vip:   172.16.10.31
+
+ora_rac::params::domain_name:        example.com
+ora_rac::params::scan_name:          scan
+ora_rac::params::scan_adresses:
+  - '172.16.10.40'
+  - '172.16.10.41'
+  - '172.16.10.42'
+
+ora_rac::params::cluster_name:                cluster
+ora_rac::params::disk_group_name:             CRS
+ora_rac::params::public_network_interfaces:   ['eth1']
+ora_rac::params::private_network_interfaces:  ['eth2']
+ora_rac::params::unused_network_interfaces:   ['eth0']
+ora_rac::params::puppet_download_mnt_point:   /vagrant/software
+
+ssh::access::allow:
+  - 'grid'
+  - 'oracle'
+ssh::keys::grid:
+  type: 'ssh-rsa'
+  public_key: 'AAAAB3NzaC1yc2EAAAABIwAAAQEAmwosmX3BKq/h3csPXegJVq72YgLWVhuhiwmLFp7OjYnczMLxBk5hkZim6QHnadbbmdq2+z/e6XNbd+aPQaTsXPWnaC2pWsrio9qF2RVRT6LJh3CNbIAiVBKfEA5NiF9HWhmnRfcWBEhujeR4WPisZjEpzz3lD+gfXINsp16j4H/mTUUWnl2LjspHuYkbpy25sJWI6j3jgJZWA9XeLpMMVlGCo27M5THaqosj5bG+CqCRL2Vfn7s0jO6DdEHCPnyTaecjymy0/W7S5PLcuRrRrQWLVtTSpTr83GDgk3ivPh/euPUa3ikKn6vQGvIVMOw+8bvaj7jqiKm6Y25fhhZc1w=='
+ssh::keys::oracle:
+  type: 'ssh-rsa'
+  public_key: 'AAAAB3NzaC1yc2EAAAABIwAAAQEAyhd981no5+R1VE7URWzLcSc9j3rnEKqGcNSPHV8QBq3/wnLHowAMa6ITWhDoP03+8Do6PUDyMcCNOZbsQbK/7EjmyYgFvCnB/ZvnPfYC8q7zs3830uvg/FkxCTEingVDfa495WQnpuMn2tIZcqrpp1ZGRYnJeLdDS0an4iHI6VNUKSwgcNhgU1w4iCgb4Onfh0Z2vra+mtkIHfRrXWHtdq+YfKpX66rjigoZkj/VB6vFF/5EpJ4L0rfJZrysKiAQBEmdfiwcDao/enUJpmNtgZaJSwNTI5uPHZXHqJT4GONRPxMUXeOoyya+uO51JiH9CcmDQZsLJd0u6LrV4Q1DZQ=='
+
+ssh::users:
+  grid:
+    allow: [ 'grid', 'oracle' ]
+  oracle:
+    allow: [ 'grid', 'oracle' ]
+
+
+ora_rac::params::version:              12.1.0.1
+ora_rac::params::grid_file:            linuxamd64_12c_grid
+ora_rac::params::oracle_file:          linuxamd64_12c_database
+ora_rac::params::oracle_home:          /opt/oracle/app/12.1.0.1/db_1
+ora_rac::params::grid_home:            /opt/oracle/app/12.1.0.1/grid
