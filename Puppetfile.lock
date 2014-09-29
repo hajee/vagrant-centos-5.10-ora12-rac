@@ -14,6 +14,10 @@ FORGE
       domcleal-augeasproviders (>= 0.5.1)
     hajee-easy_type (0.13.0)
     hajee-hacks (0.0.2)
+    hajee-ora_rac (0.0.2)
+      biemond-oradb (>= 1.0.17)
+      hajee-hacks (>= 0.0.1)
+      hajee-oracle (>= 0.4.0)
     hajee-oracle (0.4.0)
       hajee-easy_type (>= 0.13.0)
     hajee-partition (0.0.2)
@@ -28,16 +32,6 @@ GIT
   specs:
     yelp-netstdlib (0.0.1)
       puppetlabs-stdlib (>= 0)
-
-GIT
-  remote: https://www.github.com/hajee/ora_rac.git
-  ref: master
-  sha: 389bb0e570f709ac60abd790a3153e830182958e
-  specs:
-    hajee-ora_rac (0.0.1)
-      biemond-oradb (>= 1.0.17)
-      hajee-hacks (>= 0.0.1)
-      hajee-oracle (>= 0.4.0)
 
 DEPENDENCIES
   adrien-boolean (>= 0)
