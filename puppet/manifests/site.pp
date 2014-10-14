@@ -1,11 +1,24 @@
 Package{allow_virtual => false,}
 
-$instance = 'example'
+$instance     = 'example'
+$requirements = [
+      File['/opt/oracle'],
+      Class[Ora_rac::Interfaces],
+      Class[Ora_rac::Os],
+      Class[Ora_Rac::Sysctl],
+      Class[Ora_rac::Hosts],
+      Class[Ora_rac::Base],
+      Class[Ora_rac::Install],
+      Class[Ora_rac::Swapspace],
+    ]
+
 
 node 'rac_node' {
   require fw
   contain ora_rac::interfaces
   contain ora_rac::os
+  contain ora_rac::sysctl
+  contain ora_rac::iptables
   contain ora_rac::hosts
   contain ora_rac::base
   contain ora_rac::install
@@ -27,20 +40,11 @@ node 'rac_node' {
 }
 
 node 'db1.example.com' inherits 'rac_node'{
-  contain ora_rac::config
-
-
+  require ora_rac::config
+  require ora_rac::disk_groups
+  $db1_requirements = $requirements + [Class[Ora_rac::Config]]
   class {'ora_rac::db_master':
-    require => [
-      File['/opt/oracle'],
-      Class[Ora_rac::Interfaces],
-      Class[Ora_rac::Os],
-      Class[Ora_rac::Hosts],
-      Class[Ora_rac::Base],
-      Class[Ora_rac::Install],
-      Class[Ora_rac::Config],
-      Class[Ora_rac::Swapspace],
-    ]
+    require => $db1_requirements,
   }
 }
 
@@ -49,15 +53,6 @@ node 'db2.example.com' inherits 'rac_node'{
   contain ora_rac::scandisks
 
   class {'ora_rac::db_server':
-    require => [
-      File['/opt/oracle'],
-      Class[Ora_rac::Interfaces],
-      Class[Ora_rac::Os],
-      Class[Ora_rac::Hosts],
-      Class[Ora_rac::Base],
-      Class[Ora_rac::Install],
-      Class[Ora_rac::Scandisks],
-      Class[Ora_rac::Swapspace],
-    ]
+    require => $requirements,
   }
 }

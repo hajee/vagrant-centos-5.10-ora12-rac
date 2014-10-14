@@ -1,7 +1,12 @@
 
-desc "Update all external content"
+desc "Install all external content"
 task :install_modules do
   sh "librarian-puppet install \-\-path=puppet/modules"
+end
+
+desc "Update all external content"
+task :update_modules do
+  sh "librarian-puppet update"
 end
 
 desc  "destroy both db nodes "
