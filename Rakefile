@@ -114,7 +114,7 @@ end
 
 def create_controller(vm)
   puts "Creating controller"
-  sh "vboxmanage storagectl #{vm} --add sata --portcount 7 --name 'SATA Controller'"
+  sh "vboxmanage storagectl #{vm} --add sata --portcount 10 --name 'SATA Controller'"
 end
 
 def connect_disks(vm)

@@ -19,3 +19,5 @@ puppet/modules/partition
 puppet/modules/ssh
 puppet/modules/stdlib
 *.vdi
+puppet/modules/module_data
+puppet/modules/concat

@@ -23,7 +23,69 @@ ora_rac::params::disk_group_name:             CRS
 ora_rac::params::public_network_interfaces:   ['eth1']
 ora_rac::params::private_network_interfaces:  ['eth2']
 ora_rac::params::unused_network_interfaces:   ['eth0']
-ora_rac::params::puppet_download_mnt_point:   /vagrant/software
+
+ora_rac::settings::puppet_download_mnt_point:   /vagrant/software
+
+
+ora_rac::settings::asm_disks:
+  CRSVOL1:
+    raw_device: /dev/sda:1
+    start:      '1049kB'
+    end:        '4294MB'
+  CRSVOL2:
+    raw_device: /dev/sdb:1
+    start:      '1049kB'
+    end:        '4294MB'
+  CRSVOL3:
+    raw_device: /dev/sdc:1
+    start:      '1049kB'
+    end:        '4294MB'
+  REDOVOL1:
+    raw_device: /dev/sdd:1
+    start:      '1049kB'
+    end:        '4294MB'
+  REDOVOL2:
+    raw_device: /dev/sde:1
+    start:      '1049kB'
+    end:        '4294MB'
+  DATAVOL1:
+    raw_device: /dev/sdf:1
+    start:      '1049kB'
+    end:        '4294MB'
+  DATAVOL2:
+    raw_device: /dev/sdg:1
+    start:      '1049kB'
+    end:        '4294MB'
+
+ora_rac::settings::asm_disk_groups:
+  'REDO@+ASM1':
+    ensure:          present
+    redundancy_type: normal
+    failgroups:
+      CONTROLLER1:
+        diskname:     REDOVOL1
+        path:         ORCL:REDOVOL1
+      CONTROLLER2:
+        diskname:     REDOVOL2
+        path:         ORCL:REDOVOL2
+    require:          
+      - Ora_rac::Asm_disk[REDOVOL1]
+      - Ora_Rac::Asm_disk[REDOVOL2]
+  '%{ora_rac::params::data_disk_group_name}@+ASM1':
+    ensure:          present
+    redundancy_type: normal
+    failgroups:
+      CONTROLLER1:
+        diskname:     DATAVOL1
+        path:         ORCL:DATAVOL1
+      CONTROLLER2:
+        diskname:     DATAVOL2
+        path:         ORCL:DATAVOL2
+    require:
+      - Ora_rac::Asm_disk[DATAVOL1]
+      - Ora_Rac::Asm_disk[DATAVOL2]
+
+
 
 ssh::access::allow:
   - 'grid'
@@ -42,8 +104,8 @@ ssh::users:
     allow: [ 'grid', 'oracle' ]
 
 
-ora_rac::params::version:              12.1.0.1
-ora_rac::params::grid_file:            linuxamd64_12c_grid
-ora_rac::params::oracle_file:          linuxamd64_12c_database
-ora_rac::params::oracle_home:          /opt/oracle/app/12.1.0.1/db_1
-ora_rac::params::grid_home:            /opt/oracle/app/12.1.0.1/grid
+ora_rac::settings::version:              12.1.0.1
+ora_rac::settings::grid_file:            linuxamd64_12c_grid
+ora_rac::settings::oracle_file:          linuxamd64_12c_database
+ora_rac::settings::oracle_home:          /opt/oracle/app/12.1.0.1/db_1
+ora_rac::settings::grid_home:            /opt/oracle/app/12.1.0.1/grid
